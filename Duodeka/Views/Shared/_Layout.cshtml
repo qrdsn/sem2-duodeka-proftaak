@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Duodeka</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Duodeka.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/icons/bootstrap-icons.css" />
+</head>
+<body>
+    <header style="background: #E5E5E5;">
+        <div class="d-flex flex-row justify-content-between py-2 px-1 m-0">
+            <div class="d-flex justify-content-between">
+                <a class="mx-2"><i class="bi bi-chevron-left"></i></a>
+                <a class="mx-2"><i class="bi bi-chevron-right"></i></a>
+                <a class="mx-2"><i class="bi bi-chevron-up"></i></a>
+                <a class="mx-2"><i class="bi bi-folder-plus"></i></a>
+                <a class="mx-2"><i class="bi bi-cloud-arrow-up"></i></a>
+                <a class="mx-2"><i class="bi bi-download"></i></a>
+                </div>
+            <div><input type="text" placeholder="search" /></div>
+            <div>Gebruikersnaam <a><i class="bi bi-three-dots-vertical"></i></a></div>
+        </div>
+    </header>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <div class="p-0">            
+        @RenderBody()
+    </div>
+
+@*    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Duodeka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+
+    <div class="message-container" id="messageContainer"></div>
+    <script type="text/template" data-template="messageTemplate">
+     <div>${body}</div>   
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)    
+    
+    <script type="text/template" data-template="messageTemplate">
+     <div class="alert alert-${priority} alert-dismissible fade show" role="alert">
+  ${body}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    </script>
+
+</body>
+</html>

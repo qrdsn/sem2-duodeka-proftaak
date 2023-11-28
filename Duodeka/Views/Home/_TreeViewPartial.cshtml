@@ -1,0 +1,65 @@
+﻿@using DuodekaModels.Items
+@model TreeNodeModel[]
+
+<div class="treeview-container" id="treeViewContainer">
+
+
+<script type="text/javascript" data-template="treeNodeTemplate">
+        <div class="tree-node" id="node-${nodeId}">
+        <div class="node-header">
+            <div class="node-expand" >
+                <a data-bs-toggle="collapse" href="#node-${nodeId}-content" aria-expanded="false" aria-controls="node-${nodeId}-content">
+                                
+                </a>
+            </div>
+            <div class="node-icon">
+                <i class="bi bi-folder"></i>
+            </div>
+            <div class="node-name">
+                <p>node name</p>
+            </div>
+        </div>
+        <div class="collapse node-content" id="node-${nodeId}-content">
+            <!-- child nodes go here -->
+        </div>
+    </div>
+</script>
+    
+<script type="text/javascript" >
+    const treeNodes = @Html.Raw(Json.Serialize(Model));
+
+    function loadItemsInFolder(id, path) {
+        let targetPath = path + "/" + id;
+        $.post(host + "/Items/FilesInDirectory", { path: targetPath })
+            .done(data => LoadFilesInExplorer(data))
+            .fail(data => showMessage(data.responseText, "danger"))
+    }
+
+    function addChildren(node) {
+        node.children.forEach(n => {
+
+            LoadSingleFromTemplate(n, "treeNodeTemplate", "node-" + node.nodeId + "-content");
+
+            if (n.children.length > 0) {
+
+                $("#node-" + n.nodeId + "-collapse").append('<a data-bs-toggle="collapse" href="#node-' + n.nodeId + '-content" aria-expanded="false" aria-controls="node-' + n.nodeId + '-content"><i class="bi bi-chevron-right"></i></a>')
+                addChildren(n);
+            }
+        })
+    }
+
+    function ReloadTreeNodes(nodes) {
+        $('#treeViewContainer').empty();
+
+        nodes.forEach(n => {
+            LoadSingleFromTemplate(n, "treeNodeTemplate", "treeViewContainer");
+
+            if (n.children.length > 0) {
+                
+                $("#node-" + n.nodeId + "-collapse").append('<a data-bs-toggle="collapse" href="#node-' + n.nodeId + '-content" aria-expanded="false" aria-controls="node-' + n.nodeId + '-content"><i class="bi bi-chevron-right"></i></a>')
+                addChildren(n)
+            }
+        })
+    }
+
+</script>

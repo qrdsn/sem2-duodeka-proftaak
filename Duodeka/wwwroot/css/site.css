@@ -1,0 +1,62 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.container-fluid {
+    padding: .2em 1em;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.message-container{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    padding: 8px;
+}
+
+/* Treeview Styles */
+.treeview-container {
+    width: 400px;
+}
+
+.node-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    overflow-x: hidden;
+}
+
+.node-name {
+    cursor: pointer;
+}
+
+.node-content {
+    margin-left: 1.5em;
+}
+
+.node-expand {
+    width: 1.5em;
+    text-align: center;
+}
+
+.node-icon {
+    width: 1.5em;
+    text-align: center;
+}
